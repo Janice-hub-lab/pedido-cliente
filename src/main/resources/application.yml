@@ -1,1 +1,3 @@
-spring.application.name=pedido-cliente
+server:
+ servlet:
+    context-path: /cliente-pedido/api
