@@ -2,9 +2,12 @@ package dev.wakandaacademy.pedido_cliente.cliente.application.api;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import dev.wakandaacademy.pedido_cliente.cliente.domain.Cliente;
+import lombok.Value;
 
+@Value
 public class ClienteListResponse {
 	private UUID idCliente;
     private String nomeCompleto;
@@ -13,6 +16,15 @@ public class ClienteListResponse {
 	private String cpf;
 	
 	public static List<ClienteListResponse> converte(List<Cliente> clientes) {
-		return null;
+		return clientes.stream()
+				.map(ClienteListResponse::new)
+				.collect(Collectors.toList());
+	}
+	private ClienteListResponse(Cliente cliente) {
+		this.idCliente = cliente.getIdCliente();
+		this.nomeCompleto = cliente.getNomeCompleto();
+		this.email = cliente.getEmail();
+		this.celular = cliente.getCelular();
+		this.cpf = cliente.getCpf();
 	}
 }
