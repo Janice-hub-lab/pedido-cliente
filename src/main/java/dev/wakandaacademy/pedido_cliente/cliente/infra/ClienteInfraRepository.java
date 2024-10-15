@@ -1,7 +1,10 @@
 package dev.wakandaacademy.pedido_cliente.cliente.infra;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
+import dev.wakandaacademy.pedido_cliente.cliente.application.api.ClienteListResponse;
 import dev.wakandaacademy.pedido_cliente.cliente.application.repository.ClienteRepository;
 import dev.wakandaacademy.pedido_cliente.cliente.domain.Cliente;
 import lombok.RequiredArgsConstructor;
@@ -20,4 +23,14 @@ public class ClienteInfraRepository implements ClienteRepository {
 		log.info("[finaliza] ClienteInfraRepository - salva");
 		return cliente;
 	}
+
+	@Override
+	public List<Cliente> buscaTodosClientes() {
+		log.info("[inicia] ClienteInfraRepository - buscaTodosClientes");
+		List<Cliente> todosClientes = clienteSpringDataJPARepository.findAll();
+		log.info("[finaliza] ClienteInfraRepository - buscaTodosClientes");
+		return todosClientes;
+	}
+
+
 }
