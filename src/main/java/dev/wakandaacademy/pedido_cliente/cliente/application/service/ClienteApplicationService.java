@@ -1,7 +1,10 @@
 package dev.wakandaacademy.pedido_cliente.cliente.application.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
+import dev.wakandaacademy.pedido_cliente.cliente.application.api.ClienteListResponse;
 import dev.wakandaacademy.pedido_cliente.cliente.application.api.ClienteRequest;
 import dev.wakandaacademy.pedido_cliente.cliente.application.api.ClienteResponse;
 import dev.wakandaacademy.pedido_cliente.cliente.application.repository.ClienteRepository;
@@ -18,12 +21,18 @@ public class ClienteApplicationService implements ClienteService {
 
 	@Override
 	public ClienteResponse criaCliente(ClienteRequest clienteRequest) {
-		log.info("[inicia] ClienteApplicationService - criaCliente  ");
+		log.info("[inicia] ClienteApplicationService - criaCliente");
 		Cliente cliente = clienteRepository.salva(new Cliente(clienteRequest));
 		log.info("[finaliza] ClienteApplicationService - criaCliente");
 		return ClienteResponse.builder()
 				.idCliente(cliente.getIdCliente())
 				.build();
+	}
+	@Override
+	public List<ClienteListResponse> buscaTodosClientes() {
+		log.info("[inicia] ClienteApplicationService - buscaTodosClientes");
+		log.info("[finaliza] ClienteApplicationService - buscaTodosClientes");
+		return null;
 	}
 
 }
