@@ -1,12 +1,14 @@
 package dev.wakandaacademy.pedido_cliente.cliente.infra;
 
 import java.util.List;
+import java.util.UUID;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
-import dev.wakandaacademy.pedido_cliente.cliente.application.api.ClienteListResponse;
 import dev.wakandaacademy.pedido_cliente.cliente.application.repository.ClienteRepository;
 import dev.wakandaacademy.pedido_cliente.cliente.domain.Cliente;
+import dev.wakandaacademy.pedido_cliente.handler.APIException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
@@ -30,6 +32,14 @@ public class ClienteInfraRepository implements ClienteRepository {
 		log.info("[finaliza] ClienteInfraRepository - buscaTodosClientes");
 		return todosClientes;
 	}
-
+	@Override
+	public Cliente buscaClienteAtravesID(UUID idCliente) {
+		log.info("[inicia] ClienteInfraRepository - buscaClienteAtravesID");
+		Cliente cliente = clienteSpringDataJPARepository.findById(idCliente)
+				.orElseThrow(() -> APIException.build(HttpStatus.NOT_FOUND,
+						"Cliente não encontrado!"));
+		log.info("[finaliza] ClienteInfraRepository - buscaClienteAtravesID");
+		return cliente;
+	}
 
 }
