@@ -1,12 +1,12 @@
 package dev.wakandaacademy.pedido_cliente.pedido.domain;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.springframework.data.annotation.Id;
 
 import dev.wakandaacademy.pedido_cliente.cliente.domain.Cliente;
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import lombok.AccessLevel;
@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
-@Entity
 public class Pedido {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,5 +26,8 @@ public class Pedido {
 	private Cliente idcliente;
 	private String descricao;
 	private Double valor;
+	
+	private LocalDateTime dataHoraCadastro;
+	private LocalDateTime dataHoraDaUltimaAlteracao;
 
 }
