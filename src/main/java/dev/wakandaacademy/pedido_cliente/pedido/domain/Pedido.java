@@ -24,7 +24,8 @@ public class Pedido {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(columnDefinition = "uuid", name = "id", updatable = false, unique = true, nullable = false)
 	private Cliente idcliente;
-	private String descricao;
+	private String nomeCompletoCliente;
+	private String descricaoPedido;
 	private Double valor;
 	
 	private LocalDateTime dataHoraCadastro;
