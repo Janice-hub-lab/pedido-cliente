@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
+import dev.wakandaacademy.pedido_cliente.cliente.application.api.ClienteAlteracaoRequest;
 import dev.wakandaacademy.pedido_cliente.cliente.application.api.ClienteDetalhadoResponse;
 import dev.wakandaacademy.pedido_cliente.cliente.application.api.ClienteListResponse;
 import dev.wakandaacademy.pedido_cliente.cliente.application.api.ClienteRequest;
@@ -26,10 +27,9 @@ public class ClienteApplicationService implements ClienteService {
 		log.info("[inicia] ClienteApplicationService - criaCliente");
 		Cliente cliente = clienteRepository.salva(new Cliente(clienteRequest));
 		log.info("[finaliza] ClienteApplicationService - criaCliente");
-		return ClienteResponse.builder()
-				.idCliente(cliente.getIdCliente())
-				.build();
+		return ClienteResponse.builder().idCliente(cliente.getIdCliente()).build();
 	}
+
 	@Override
 	public List<ClienteListResponse> buscaTodosClientes() {
 		log.info("[inicia] ClienteApplicationService - buscaTodosClientes");
@@ -37,6 +37,7 @@ public class ClienteApplicationService implements ClienteService {
 		log.info("[finaliza] ClienteApplicationService - buscaTodosClientes");
 		return ClienteListResponse.converte(clientes);
 	}
+
 	@Override
 	public ClienteDetalhadoResponse buscaClienteAtravesId(UUID idCliente) {
 		log.info("[inicia] ClienteApplicationService - buscaClienteAtravesId");
@@ -44,12 +45,22 @@ public class ClienteApplicationService implements ClienteService {
 		log.info("[finaliza] ClienteApplicationService - buscaClienteAtravesId");
 		return new ClienteDetalhadoResponse(cliente);
 	}
+
 	@Override
 	public void deletaClienteAtravesId(UUID idCliente) {
 		log.info("[inicia] ClienteApplicationService - deletaClienteAtravesId");
 		Cliente cliente = clienteRepository.buscaClienteAtravesID(idCliente);
 		clienteRepository.deletaCliente(cliente);
-		log.info("[finaliza] ClienteApplicationService - deletaClienteAtravesId");		
+		log.info("[finaliza] ClienteApplicationService - deletaClienteAtravesId");
+	}
+
+	@Override
+	public void patchAlteraClienteClienteAtravesId(UUID idCliente, ClienteAlteracaoRequest clienteAlteracaoRequest) {
+		log.info("[inicia] ClienteApplicationService - patchAlteraClienteClienteAtravesId");
+		Cliente cliente = clienteRepository.buscaClienteAtravesID(idCliente);
+		cliente.altera(clienteAlteracaoRequest);
+		clienteRepository.salva(cliente);
+		log.info("[finaliza] ClienteApplicationService - patchAlteraClienteClienteAtravesId");
 	}
 
 }
